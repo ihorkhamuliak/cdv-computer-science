@@ -25,7 +25,7 @@ return 0;
 }
 int main() //двигун
 {
-    vector<int> my_arr = {2, 4, 6}; //список цифа
+    vector<int> my_arr = {2, 4, 6}; //список цифр
 
     cout << "Finally sum: " << sum(my_arr) << endl; //виведення суми в термінал
 

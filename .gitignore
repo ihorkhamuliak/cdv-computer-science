@@ -1,0 +1,12 @@
+# Build output
+*.exe
+bin/
+obj/
+
+# Lab archives: their contents are unpacked into folders next to them
+*.zip
+
+# Not my work: a textbook and the Magiczne Bloczki program itself (only my diagrams go in)
+1 SEM/Completed CDV modules/Roman Murawski*.pdf
+1 SEM/Completed CDV modules/Magiczne Bloczki(CDV)/*
+!1 SEM/Completed CDV modules/Magiczne Bloczki(CDV)/Bloczki zadanie/
