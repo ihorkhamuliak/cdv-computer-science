@@ -2,30 +2,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Task 1: PI",
+            "name": "Lab 2: all tasks",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Zad1_PI/bin/Debug/net10.0/Zad1_PI.dll",
-            "cwd": "${workspaceFolder}/Zad1_PI",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Tasks 2-4: bits",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Zad2_4_Bits/bin/Debug/net10.0/Zad2_4_Bits.dll",
-            "cwd": "${workspaceFolder}/Zad2_4_Bits",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Task 5: enum",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Zad5_Enum/bin/Debug/net10.0/Zad5_Enum.dll",
-            "cwd": "${workspaceFolder}/Zad5_Enum",
+            "program": "${workspaceFolder}/bin/Debug/net10.0/L02.dll",
+            "cwd": "${workspaceFolder}",
             "console": "integratedTerminal"
         }
     ]

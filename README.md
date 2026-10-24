@@ -11,10 +11,10 @@ semester → subject → labs.
 | 1 SEM | Programowanie Systemowe | C (reports) | Lab answers in PDF: files, fork, signals, message queues |
 | 1 SEM | Magiczne Bloczki | flowcharts | Algorithms drawn as block diagrams (`.alg`) |
 | 1 SEM | Learning Algorithms (MySelf) | C++ | Self-study outside the course: binary search, sorting, recursion |
-| 2 SEM | Programowanie obiektowe | C# (.NET 10) | L02: PI by the Leibniz series, decimal to binary, bit shift and rotation, enum |
+| 2 SEM | Programowanie obiektowe | C# (.NET 10) | L02 (one program with a menu): PI by the Leibniz series, decimal to binary, bit shift and rotation, enum with full phone numbers |
 
 Before October 2026 this code lived in three separate repos (`Algorithms`, `Algorithms.MySelf`,
 `cpp-university-projects`). They were merged here with their commit history.
 
 **Run a C# lab:** open its folder (e.g. `2 SEM/Programowanie obiektowe(CDV)/L02`) in VS Code and press F5,
-or `dotnet run --project Zad1_PI`.
+or `dotnet run` in that folder.

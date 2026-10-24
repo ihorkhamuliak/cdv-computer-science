@@ -1,5 +1,3 @@
 <Solution>
-  <Project Path="Zad1_PI/Zad1_PI.csproj" />
-  <Project Path="Zad2_4_Bits/Zad2_4_Bits.csproj" />
-  <Project Path="Zad5_Enum/Zad5_Enum.csproj" />
+  <Project Path="L02.csproj" />
 </Solution>
