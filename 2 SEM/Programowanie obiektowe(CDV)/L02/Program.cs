@@ -2,8 +2,7 @@
 
 namespace L02
 {
-    // Each country gets its dialing code as an explicit value
-    // (without "= 48" the values would be 0, 1, 2, ... by default)
+
     enum CountryCode
     {
         USA = 1,
@@ -23,7 +22,6 @@ namespace L02
         {
             while (true)
             {
-                // Clear does not work when the output goes to a file instead of a window
                 if (!Console.IsOutputRedirected)
                     Console.Clear();
 
@@ -54,7 +52,7 @@ namespace L02
             }
         }
 
-        // ===== Task 1 =====
+        //                                      Task 1 
 
         static void Task1Pi()
         {
@@ -70,8 +68,6 @@ namespace L02
             Console.WriteLine($"Error:      {Math.Abs(Math.PI - pi):F10}");
             Console.WriteLine();
 
-            // The table shows how slowly the series converges:
-            // 10x more iterations gives only about one more correct digit.
             Console.WriteLine($"{"Iterations",12} | {"Leibniz PI",14} | {"Error",14}");
             Console.WriteLine(new string('-', 46));
             for (int n = 10; n <= 10_000_000; n *= 10)
@@ -81,8 +77,6 @@ namespace L02
             }
         }
 
-        // Leibniz series: PI/4 = 1 - 1/3 + 1/5 - 1/7 + ...
-        // Term k is 1 / (2k + 1); even terms are added, odd terms are subtracted.
         static double LeibnizPi(int iterations)
         {
             double sum = 0;
@@ -97,19 +91,16 @@ namespace L02
             return 4 * sum;
         }
 
-        // ===== Task 2 =====
+        //                                       Task 2 
 
         static void Task2Binary()
         {
-            // Our own conversion, Convert.ToString is used only as a check
             Console.WriteLine("=== Task 2: decimal -> binary ===");
             int number = ReadInt("Enter a non-negative whole number: ", 0, int.MaxValue);
             Console.WriteLine($"{number} in binary:                  {ToBinary(number)}");
             Console.WriteLine($"Check with Convert.ToString(n, 2): {Convert.ToString(number, 2)}");
         }
 
-        // Repeated division by 2: each remainder is the next bit, from right to left.
-        // width pads the result with zeros on the left, e.g. 5 -> 00000101 for width 8.
         static string ToBinary(int number, int width = 1)
         {
             string bits = "";
@@ -121,16 +112,14 @@ namespace L02
             return bits.PadLeft(width, '0');
         }
 
-        // ===== Task 3 =====
+        //                                   Task 3 
 
-        // Tasks 3 and 4 work on 8 bits (byte), so every bit is visible
         static void Task3Shift()
         {
             Console.WriteLine("=== Task 3: bit shift (8 bits, byte) ===");
             byte value = (byte)ReadInt("Enter a number from 0 to 255: ", 0, 255);
             int positions = ReadInt("Enter how many positions to move (1-7): ", 1, 7);
 
-            // The result of << is an int, so (byte) cuts it back to 8 bits
             byte shiftedLeft = (byte)(value << positions);
             byte shiftedRight = (byte)(value >> positions);
 
@@ -139,7 +128,7 @@ namespace L02
             Console.WriteLine($"Shift right {positions}: {shiftedRight,3} = {ToBinary(shiftedRight, 8)}   (bits pushed out on the right are lost, zeros come in on the left)");
         }
 
-        // ===== Task 4 =====
+        //                                    Task 4 
 
         static void Task4Rotate()
         {
@@ -155,7 +144,6 @@ namespace L02
             Console.WriteLine($"Rotate right {positions}: {rotatedRight,3} = {ToBinary(rotatedRight, 8)}   (bits pushed out on the right come back on the left)");
         }
 
-        // Rotation = shift + put the lost bits back on the other side
         static byte RotateLeft(byte value, int positions)
         {
             return (byte)((value << positions) | (value >> (8 - positions)));
@@ -166,14 +154,13 @@ namespace L02
             return (byte)((value >> positions) | (value << (8 - positions)));
         }
 
-        // ===== Task 5 =====
+        //                                     Task 5 
 
         static void Task5Enum()
         {
             Console.WriteLine("=== Task 5: enum test, country dialing codes ===");
             Console.WriteLine();
 
-            // 1. All enum values: name and number
             Console.WriteLine("All countries in the enum:");
             foreach (CountryCode c in Enum.GetValues<CountryCode>())
             {
@@ -181,50 +168,25 @@ namespace L02
             }
             Console.WriteLine();
 
-            // 2. A cast does not check anything: 999 is not in the enum, but the cast still works
             CountryCode unknown = (CountryCode)999;
             Console.WriteLine($"(CountryCode)999 gives: {unknown}   <- just a number, no name");
             Console.WriteLine($"Enum.IsDefined for 999: {Enum.IsDefined(unknown)}");
             Console.WriteLine();
 
-            // 3. Country (by name or by code) + local number -> full international number
-            CountryCode country = ReadCountry();
-            string phone = ReadPhone();
+            string number = ReadFullNumber(out CountryCode country);
             Console.WriteLine();
-            Console.WriteLine($"Country:     {country} (+{(int)country})");
-            Console.WriteLine($"Full number: +{(int)country} {GroupDigits(phone)}");
+            Console.WriteLine($"Country:     {country}");
+            Console.WriteLine($"Code:        +{(int)country}");
+            Console.WriteLine($"Number:      {GroupDigits(number)}");
+            Console.WriteLine($"Full number: +{(int)country} {GroupDigits(number)}");
         }
 
-        static CountryCode ReadCountry()
+        static string ReadFullNumber(out CountryCode country)
         {
             while (true)
             {
-                Console.Write("Enter a country name or a dialing code: ");
-                string input = (Console.ReadLine() ?? "").Trim();
-
-                // number -> name: check with IsDefined before the cast
-                if (int.TryParse(input, out int code))
-                {
-                    if (Enum.IsDefined(typeof(CountryCode), code))
-                        return (CountryCode)code;
-                }
-                // name -> number: Enum.TryParse turns text into an enum value
-                // (IsDefined also here: TryParse accepts "Poland,Spain" and ORs the values together)
-                else if (Enum.TryParse(input, ignoreCase: true, out CountryCode country) && Enum.IsDefined(country))
-                {
-                    return country;
-                }
-                Console.WriteLine($"  \"{input}\" is not in the enum, try again.");
-            }
-        }
-
-        // Spaces and dashes are allowed and removed; only 6-12 digits are accepted
-        static string ReadPhone()
-        {
-            while (true)
-            {
-                Console.Write("Enter the phone number without the country code: ");
-                string digits = (Console.ReadLine() ?? "").Replace(" ", "").Replace("-", "");
+                Console.Write("Enter the full phone number with the country code: ");
+                string digits = (Console.ReadLine() ?? "").Replace("+", "").Replace(" ", "").Replace("-", "");
 
                 bool onlyDigits = digits.Length > 0;
                 foreach (char ch in digits)
@@ -233,13 +195,38 @@ namespace L02
                         onlyDigits = false;
                 }
 
-                if (onlyDigits && digits.Length >= 6 && digits.Length <= 12)
-                    return digits;
-                Console.WriteLine("  Please enter 6 to 12 digits.");
+                if (!onlyDigits)
+                {
+                    Console.WriteLine("  Please enter digits only (+, spaces and dashes are allowed).");
+                }
+                else if (!TryFindCountry(digits, out country))
+                {
+                    Console.WriteLine("  The number does not start with any country code from the enum.");
+                }
+                else
+                {
+                    string number = digits.Substring(((int)country).ToString().Length);
+                    if (number.Length >= 6 && number.Length <= 12)
+                        return number;
+                    Console.WriteLine("  After the country code there must be 6 to 12 digits.");
+                }
             }
         }
 
-        // "123456789" -> "123 456 789"
+        static bool TryFindCountry(string digits, out CountryCode country)
+        {
+            foreach (CountryCode c in Enum.GetValues<CountryCode>())
+            {
+                if (digits.StartsWith(((int)c).ToString()))
+                {
+                    country = c;
+                    return true;
+                }
+            }
+            country = default;
+            return false;
+        }
+
         static string GroupDigits(string digits)
         {
             string result = "";
@@ -252,7 +239,7 @@ namespace L02
             return result;
         }
 
-        // ===== Shared =====
+        //Shared 
 
         static int ReadInt(string prompt, int min, int max)
         {
