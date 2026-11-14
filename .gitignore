@@ -11,3 +11,9 @@ obj/
 1 SEM/Completed CDV modules/Roman Murawski*.pdf
 1 SEM/Completed CDV modules/Magiczne Bloczki(CDV)/*
 !1 SEM/Completed CDV modules/Magiczne Bloczki(CDV)/Bloczki zadanie/
+
+# CMS lab (14.11): separate private repo cms-lab (WordPress, passwords in its .env), not part of this public repo
+2 SEM/CMS(CDV)/cms-lab/
+
+# CMS (14.11): course materials from Blackboard are the lecturer's, not mine
+2 SEM/CMS(CDV)/Materialy/
