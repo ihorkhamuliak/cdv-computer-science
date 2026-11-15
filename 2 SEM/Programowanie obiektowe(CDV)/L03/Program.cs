@@ -19,6 +19,9 @@ namespace L03
                 new AbsoluteValue()
             };
 
+            int expressionOption = operations.Length + 1;
+            int quadraticOption = operations.Length + 2;
+
             while (true)
             {
                 if (!Console.IsOutputRedirected)
@@ -27,11 +30,11 @@ namespace L03
                 Console.WriteLine("=== Lab 3: calculator ===");
                 for (int i = 0; i < operations.Length; i++)
                     Console.WriteLine($"{i + 1}. {operations[i].Name}");
-                Console.WriteLine("8. Whole expression, e.g. 3 + (3/5)*4");
-                Console.WriteLine("9. Quadratic equation ax^2 + bx + c = 0");
+                Console.WriteLine($"{expressionOption}. Whole expression, e.g. 3 + (3/5)*4");
+                Console.WriteLine($"{quadraticOption}. Quadratic equation ax^2 + bx + c = 0");
                 Console.WriteLine("0. Exit");
 
-                int choice = ReadInt("Choose an option: ", 0, 9);
+                int choice = ReadInt("Choose an option: ", 0, quadraticOption);
                 Console.WriteLine();
 
                 if (choice == 0)
@@ -42,9 +45,9 @@ namespace L03
                     // Task 3: one error message instead of a crash, whatever went wrong
                     try
                     {
-                        if (choice <= 7)
+                        if (choice <= operations.Length)
                             RunOperation(operations[choice - 1]);
-                        else if (choice == 8)
+                        else if (choice == expressionOption)
                             RunExpression();
                         else
                             RunQuadratic();
